@@ -1,4 +1,5 @@
-  import streamlit as st
+# Feilen-Mei-eln-Pr-fen
+import streamlit as st
 import random
 
 # Настройка вкладки
@@ -21,7 +22,7 @@ if "quiz_data" not in st.session_state:
             ]
         },
         {
-            "question": "2. Welche Behauptung ueber die gekennzeichneten Teile (Bild 10/2 / erste Seite) des Messschiebers ist richtig?",
+            "question": "2. Welche Behauptung ueber die gekennzeichneten Teile (Bild 10/2 / erste Seite) des Messschiebers is richtig?",
             "choices": [
                 "a) Mit Teil k wird der bewegliche Messschenkel festgestellt.",
                 "b) Auf Teil g liest man die vollen Millimeter ab.",
@@ -33,83 +34,84 @@ if "quiz_data" not in st.session_state:
                 "a) Mit Teil k wird der bewegliche Messschenkel festgestellt."
             ]
         },
-"question": "3. Wie groß ist die genormte Bezugstemperatur in der Längenprüftechnik?",
-        "choices": [
-            "a) 4°C",
-            "b) 10°C",
-            "c) 16°C",
-            "d) 20°C",
-            "e) 24°C"
-        ],
-        "correct": [
-            "d) 20°C"
-        ]
-    },
-    {
-        "question": "4. Wie kann der Begriff „Messen“ erklärt werden?",
-        "choices": [
-            "a) Messen ist das Ermitteln von Nennmaßen mit gesetzlich vorgeschriebenem Maßstab.",
-            "b) Messen ist das Ermitteln von absolut genauen Maßen.",
-            "c) Messen ist das Überprüfen einer Maßtoleranz mit einer Lehre.",
-            "d) Messen ist das Messen einer Länge oder eines Winkels mit einem Messgerät.",
-            "e) Messen ist das Vergleichen eines Prüfgegenstandes mit einer Lehre."
-        ],
-        "correct": [
-            "d) Messen ist das Messen einer Länge oder eines Winkels mit einem Messgerät."
-        ]
-    },
-    {
-        "question": "5. Welche Behauptung über das „Lehren“ ist richtig?",
-        "choices": [
-            "a) Beim Lehren werden sehr genaue Zahlenwerte ermittelt.",
-            "b) Beim Lehren wird festgestellt, ob der Prüfgegenstand bestimmte Bedingungen erfüllt.",
-            "c) Beim Lehren wird meist mit dem Messschieber gearbeitet.",
-            "d) Lehren kann man nur mit dem Anschlagwinkel oder mit dem Haarlineal."
-        ],
-        "correct": [
-            "b) Beim Lehren wird festgestellt, ob der Prüfgegenstand bestimmte Bedingungen erfüllt."
-        ]
-    },
-    {
-        "question": "6. Beim Messen mit dem Messschieber können Messfehler auftreten, Auf welche Fehlerquelle hat man beim Messen keinen Einfluss?",
-        "choices": [
-            "a) Ablesefehler durch Parallaxe",
-            "b) Schmutz an den Messflächen des Messschiebers",
-            "c) Schräges Ansetzen der Messschenkel",
-            "d) Teilungsfehler des Nonius und der Strichskala",
-            "e) Zu große Messkraft"
-        ],
-        "correct": [
-            "d) Teilungsfehler des Nonius und der Strichskala."
-        ]
-    }
-    {
-        "question": "7. Wie ist die Ausschussseite eines Grenzlehrdorns gekennzeichnet?",
-        "choices": [
-            "a) Durch eine Fase",
-            "b) Durch ein aufgestempeltes A",
-            "c) Durch einen roten Farbring, außerdem ist diese Seite kürzer",
-            "d) Durch die Beschriftung mit dem Nennmaß",
-            "e) Durch eine Längsnut am Lehrenkörper"
-        ],
-        "correct": [
-            "c) Durch einen roten Farbring, außerdem ist diese Seite kürzer"
-        ]
-    },
-    {
-        "question": "8. Welche Behauptung über das Prüfen mit der Grenzrachenlehre ist richtig?",
-        "choices": [
-            "a) Es wird das Istmaß gemessen",
-            "b) Es wird festgestellt, ob das Istmaß innerhalb der zulässigen Toleranz liegt",
-            "c) Es wird die Toleranz des Werkstücks gemessen",
-            "d) Es wird das Größtmaß gemessen",
-            "e) Es wird das Nennmaß gemessen"
-        ],
-        "correct": [
-            "b) Es wird festgestellt, ob das Istmaß innerhalb der zulässigen Toleranz liegt"
-        ]
-    }
-]
+        {
+            "question": "3. Wie groß ist die genormte Bezugstemperatur in der Längenprüftechnik?",
+            "choices": [
+                "a) 4°C",
+                "b) 10°C",
+                "c) 16°C",
+                "d) 20°C",
+                "e) 24°C"
+            ],
+            "correct": [
+                "d) 20°C"
+            ]
+        },
+        {
+            "question": "4. Wie kann der Begriff „Messen“ erklärt werden?",
+            "choices": [
+                "a) Messen ist das Ermitteln von Nennmaßen mit gesetzlich vorgeschriebenem Maßstab.",
+                "b) Messen ist das Ermitteln von absolut genauen Maßen.",
+                "c) Messen ist das Überprüfen einer Maßtoleranz mit einer Lehre.",
+                "d) Messen ist das Messen einer Länge oder eines Winkels mit einem Messgerät.",
+                "e) Messen ist das Vergleichen eines Prüfgegenstandes mit einer Lehre."
+            ],
+            "correct": [
+                "d) Messen ist das Messen einer Länge oder eines Winkels mit einem Messgerät."
+            ]
+        },
+        {
+            "question": "5. Welche Behauptung über das „Lehren“ ist richtig?",
+            "choices": [
+                "a) Beim Lehren werden sehr genaue Zahlenwerte ermittelt.",
+                "b) Beim Lehren wird festgestellt, ob der Prüfgegenstand bestimmte Bedingungen erfüllt.",
+                "c) Beim Lehren wird meist mit dem Messschieber gearbeitet.",
+                "d) Lehren kann man nur mit dem Anschlagwinkel oder mit dem Haarlineal."
+            ],
+            "correct": [
+                "b) Beim Lehren wird festgestellt, ob der Prüfgegenstand bestimmte Bedingungen erfüllt."
+            ]
+        },
+        {
+            "question": "6. Beim Messen mit dem Messschieber können Messfehler auftreten, Auf welche Fehlerquelle hat man beim Messen keinen Einfluss?",
+            "choices": [
+                "a) Ablesefehler durch Parallaxe",
+                "b) Schmutz an den Messflächen des Messschiebers",
+                "c) Schräges Ansetzen der Messschenkel",
+                "d) Teilungsfehler des Nonius und der Strichskala",
+                "e) Zu große Messkraft"
+            ],
+            "correct": [
+                "d) Teilungsfehler des Nonius und der Strichskala."
+            ]
+        },
+        {
+            "question": "7. Wie ist die Ausschussseite eines Grenzlehrdorns gekennzeichnet?",
+            "choices": [
+                "a) Durch eine Fase",
+                "b) Durch ein aufgestempeltes A",
+                "c) Durch einen roten Farbring, außerdem ist diese Seite kürzer",
+                "d) Durch die Beschriftung mit dem Nennmaß",
+                "e) Durch eine Längsnut am Lehrenkörper"
+            ],
+            "correct": [
+                "c) Durch einen roten Farbring, außerdem ist diese Seite kürzer"
+            ]
+        },
+        {
+            "question": "8. Welche Behauptung über das Prüfen mit der Grenzrachenlehre ist richtig?",
+            "choices": [
+                "a) Es wird das Istmaß gemessen",
+                "b) Es wird festgestellt, ob das Istmaß innerhalb der zulässigen Toleranz liegt",
+                "c) Es wird die Toleranz des Werkstücks gemessen",
+                "d) Es wird das Größtmaß gemessen",
+                "e) Es wird das Nennmaß gemessen"
+            ],
+            "correct": [
+                "b) Es wird festgestellt, ob das Istmaß innerhalb der zulässigen Toleranz liegt"
+            ]
+        }
+    ]
     
 # Алгоритм перемешивания и логики
 if "shuffled" not in st.session_state:
