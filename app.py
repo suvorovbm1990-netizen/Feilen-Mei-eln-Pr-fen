@@ -4,10 +4,10 @@ import random
 # Настройка вкладки
 st.set_page_config(page_title="Benteler Trainer: Feilen, Meißeln, Prüfen", page_icon="📐", layout="centered")
 
-# Новая база данных вопросов (с поддержкой текстового ввода)
+# База данных вопросов
 if "quiz_data" not in st.session_state:
     st.session_state.quiz_data = [
-        # ВОПРОС С РУЧНЫМ ВВОДОМ ОБОЗНАЧЕНИЙ ШТАНГЕНЦИРКУЛЯ
+        # ВОПРОС 1: ДЕТАЛИ ШТАНГЕНЦИРКУЛЯ
         {
             "question": "1. Benennen Sie die Teile des Messschiebers (Bild 10/2):",
             "type": "text_input",
@@ -24,7 +24,47 @@ if "quiz_data" not in st.session_state:
                 "k": ["klemschraube", "klemmschraube", "feststellschraube"]
             }
         },
-        # ОСТАЛЬНЫЕ ВОПРОСЫ ТЕСТА
+        # НОВЫЙ ВОПРОС 15: ДЕТАЛИ НАПИЛЬНИКА
+        {
+            "question": "15. Benennen Sie die gekennzeichneten Bestandteile der Feile (Bild 6/1):",
+            "type": "text_input",
+            "inputs": {
+                "a": ["feilenkörper", "feilenkoerper", "feilen koper", "feilenblatt"],
+                "b": ["angel", "feilenangel"],
+                "c": ["feilengriff", "heft", "griff"]
+            }
+        },
+        # НОВЫЙ ВОПРОС 16: НОМЕРА НАСЕЧЕК (HIEBNUMMERN)
+        {
+            "question": "16. Wozu benutzt man Feilen mit folgenden Hiebnummern:",
+            "type": "text_input",
+            "inputs": {
+                "hiebnummer 1": ["schruppen", "grobe arbeiten", "grobe bearbeitung"],
+                "hiebnummer 2": ["schlichten", "halbschlichten", "mittlere arbeiten"],
+                "hiebnummer 3": ["feinschlichten", "schlichten", "feine arbeiten"],
+                "hiebnummer 4": ["feinschlichten", "feinstschlichten", "sehr feine arbeiten", "schlichten von passungen"]
+            }
+        },
+        # НОВЫЙ ВОПРОС 17: ТЕХНИКА БЕЗОПАСНОСТИ (ЧЕКБОКСЫ)
+        {
+            "question": "17. Welche der folgenden Maßnahmen dienen der Unfallverhütung beim Feilen? (Mehrere Antworten richtig)",
+            "type": "choice",
+            "choices": [
+                "a) Nur Feilen mit fest sitzendem und unbeschädigtem Griff verwenden.",
+                "b) Feilenspäne mit dem Mund wegblasen, um Zeit zu sparen.",
+                "c) Niemals eine Feile ohne Griff (mit nackter Angel) benutzen.",
+                "d) Feilenspäne nur mit einem Handfeger oder einer Bürste entfernen.",
+                "e) Das Werkstück immer fest und sicher im Schraubstock einspannen.",
+                "f) Die Feile mit Öl schmieren, damit sie besser gleitet."
+            ],
+            "correct": [
+                "a) Nur Feilen mit fest sitzendem und unbeschädigtem Griff verwenden.",
+                "c) Niemals eine Feile ohne Griff (mit nackter Angel) benutzen.",
+                "d) Feilenspäne nur mit einem Handfeger oder einer Bürste entfernen.",
+                "e) Das Werkstück immer fest und sicher im Schraubstock einspannen."
+            ]
+        },
+        # ОСТАЛЬНЫЕ ВОПРОСЫ
         {
             "question": "2. Wozu sollen die mit b gekennzeichneten spitzen, schneidenfoermigen Messflaechen des Messschiebers verwendet werden? (Bild 10/2)",
             "type": "choice",
@@ -73,7 +113,7 @@ if "quiz_data" not in st.session_state:
             "choices": [
                 "a) Messen ist das Ermitteln von Nennmaßen mit gesetzlich vorgeschriebenem Maßstab.",
                 "b) Messen ist das Ermitteln von absolut genauen Maßen.",
-                "c) Messen ist das Überprüfen einer Maßtoleranz с одной Lehre.",
+                "c) Messen ist das Überprüfen einer Maßtoleranz mit einer Lehre.",
                 "d) Messen ist das Messen einer Länge oder eines Winkels mit einem Messgerät.",
                 "e) Messen ist das Vergleichen eines Prüfgegenstandes mit einer Lehre."
             ],
@@ -162,31 +202,30 @@ if st.session_state.current_idx < len(st.session_state.shuffled):
 
     # Рендеринг в зависимости от типа вопроса
     if q_type == "text_input":
-        st.write("Geben Sie die korrekten Bezeichnungen für die Teile ein:")
+        st.write("Geben Sie die korrekten Bezeichnungen ein:")
         col1, col2 = st.columns(2)
         keys = list(q["inputs"].keys())
         
         for i, key in enumerate(keys):
             target_col = col1 if i < len(keys)/2 else col2
             with target_col:
-                # Чтение ввода и приведение к нижнему регистру для гибкой проверки
                 user_answers[key] = st.text_input(f"{key.upper()} =", key=f"text_{st.session_state.current_idx}_{key}").strip().lower()
                 
-    else: # Обычный тест с выбором
+    else: # Обычный тест или тест с чекбоксами (несколько вариантов)
         is_multiple = len(q["correct"]) > 1
         if is_multiple:
-            st.caption("ℹ️ Mehrere Antworten auswaehlen:")
+            st.caption("ℹ️ Mehrere Antworten auswählen (Отметьте правильные варианты):")
             selected_list = []
             for choice in q["choices"]:
                 if st.checkbox(choice, key=f"c_{st.session_state.current_idx}_{choice}"):
                     selected_list.append(choice)
             user_answers["choice"] = selected_list
         else:
-            st.caption("ℹ️ Eine Antwort auswaehlen:")
+            st.caption("ℹ️ Eine Antwort auswählen (Выберите один вариант):")
             selected_radio = st.radio("Optionen:", q["choices"], index=None, key=f"r_{st.session_state.current_idx}", label_visibility="collapsed")
             user_answers["choice"] = [selected_radio] if selected_radio else []
 
-    # Логика кнопок
+    # Логика кнопок проверки
     if not st.session_state.answered:
         if st.button("Antworten", type="primary", use_container_width=True):
             if q_type == "text_input":
@@ -199,7 +238,7 @@ if st.session_state.current_idx < len(st.session_state.shuffled):
                     st.rerun()
             else:
                 if not user_answers["choice"]:
-                    st.warning("Bitte waehlen Sie eine Antwort aus!")
+                    st.warning("Bitte wählen Sie eine Antwort aus!")
                 else:
                     st.session_state.answered = True
                     st.session_state.selected = user_answers
@@ -216,7 +255,7 @@ if st.session_state.current_idx < len(st.session_state.shuffled):
                     st.success(f"✔️ **{key.upper()}**: {user_val.capitalize()}")
                 else:
                     all_correct = False
-                    st.error(f"❌ **{key.upper()}**: Ваша версия: '{user_val}'. Правильно: {accepted_answers[0].capitalize()}")
+                    st.error(f"❌ **{key.upper()}**: Ваш ответ: '{user_val}'. Ожидалось: {accepted_answers[0].capitalize()}")
             
             if all_correct:
                 st.success("🟢 Alle Antworten sind richtig!")
@@ -237,11 +276,11 @@ if st.session_state.current_idx < len(st.session_state.shuffled):
                     st.session_state[f"sc_{st.session_state.current_idx}"] = True
             else:
                 st.error("🔴 Falsch!")
-                st.write("**Richtige Antwort:**")
+                st.write("**Richtige Antwort(en):**")
                 for c in q["correct"]:
                     st.write(f"✔️ {c}")
                     
-        if st.button("Naechste Frage ➡️", use_container_width=True):
+        if st.button("Nächste Frage ➡️", use_container_width=True):
             st.session_state.current_idx += 1
             st.session_state.answered = False
             st.session_state.selected = {}
