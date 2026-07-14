@@ -4,13 +4,17 @@ import random
 # Настройка вкладки
 st.set_page_config(page_title="Benteler Trainer: Feilen, Meißeln, Prüfen", page_icon="📐", layout="centered")
 
+# Ссылка на твой репозиторий для загрузки картинок
+GITHUB_RAW_URL = "https://raw.githubusercontent.com/suvorovbm1990-netizen/Feilen-Mei-eln-Pr-fen/main/"
+
 # База данных вопросов
 if "quiz_data" not in st.session_state:
     st.session_state.quiz_data = [
-        # ВОПРОС 1: ДЕТАЛИ ШТАНГЕНЦИРКУЛЯ
+        # ВОПРОС 1: ДЕТАЛИ ШТАНГЕНЦИРКУЛЯ (с картинкой)
         {
             "question": "1. Benennen Sie die Teile des Messschiebers (Bild 10/2):",
             "type": "text_input",
+            "image": "messschieber.png",
             "inputs": {
                 "a": ["fester messschenkel", "feststehender messschenkel"],
                 "b": ["messspitzen für innenmesungen", "messspitzen für innenmessungen", "schneidenförmige messflächen", "messflächen für innenmessungen"],
@@ -24,28 +28,29 @@ if "quiz_data" not in st.session_state:
                 "k": ["klemschraube", "klemmschraube", "feststellschraube"]
             }
         },
-        # НОВЫЙ ВОПРОС 15: ДЕТАЛИ НАПИЛЬНИКА
+        # ВОПРОС 15: ДЕТАЛИ НАПИЛЬНИКА (с картинкой)
         {
             "question": "15. Benennen Sie die gekennzeichneten Bestandteile der Feile (Bild 6/1):",
             "type": "text_input",
+            "image": "feile.png",
             "inputs": {
                 "a": ["feilenkörper", "feilenkoerper", "feilen koper", "feilenblatt"],
                 "b": ["angel", "feilenangel"],
                 "c": ["feilengriff", "heft", "griff"]
             }
         },
-        # НОВЫЙ ВОПРОС 16: НОМЕРА НАСЕЧЕК (HIEBNUMMERN)
+        # ВОПРОС 16: НОМЕРА НАСЕЧЕК (HIEBNUMMERN)
         {
             "question": "16. Wozu benutzt man Feilen mit folgenden Hiebnummern:",
             "type": "text_input",
             "inputs": {
                 "hiebnummer 1": ["schruppen", "grobe arbeiten", "grobe bearbeitung"],
-                "hiebnummer 2": ["halbschlichten", "mittlere arbeiten"],
-                "hiebnummer 3": [ "schlichten", "feine arbeiten"]
+                "hiebnummer 2": ["schlichten", "halbschlichten", "mittlere arbeiten"],
+                "hiebnummer 3": ["feinschlichten", "schlichten", "feine arbeiten"],
                 "hiebnummer 4": ["feinschlichten", "feinstschlichten", "sehr feine arbeiten", "schlichten von passungen"]
             }
         },
-        # НОВЫЙ ВОПРОС 17: ТЕХНИКА БЕЗОПАСНОСТИ (ЧЕКБОКСЫ)
+        # ВОПРОС 17: ТЕХНИКА БЕЗОПАСНОСТИ (ЧЕКБОКСЫ)
         {
             "question": "17. Welche der folgenden Maßnahmen dienen der Unfallverhütung beim Feilen? (Mehrere Antworten richtig)",
             "type": "choice",
@@ -53,14 +58,14 @@ if "quiz_data" not in st.session_state:
                 "a) Nur Feilen mit fest sitzendem und unbeschädigtem Griff verwenden.",
                 "b) Feilenspäne mit dem Mund wegblasen, um Zeit zu sparen.",
                 "c) Niemals eine Feile ohne Griff (mit nackter Angel) benutzen.",
-                "d) Feilenspäne nur mit einem Handfeger oder einer Bürste entfernen.",
+                "d) Feilenspäne только с помощью щетки (Handfeger/Bürste) убирать.",
                 "e) Das Werkstück immer fest und sicher im Schraubstock einspannen.",
                 "f) Die Feile mit Öl schmieren, damit sie besser gleitet."
             ],
             "correct": [
                 "a) Nur Feilen mit fest sitzendem und unbeschädigtem Griff verwenden.",
                 "c) Niemals eine Feile ohne Griff (mit nackter Angel) benutzen.",
-                "d) Feilenspäne nur mit einem Handfeger oder einer Bürste entfernen.",
+                "d) Feilenspäne только с помощью щетки (Handfeger/Bürste) убирать.",
                 "e) Das Werkstück immer fest und sicher im Schraubstock einspannen."
             ]
         },
@@ -108,7 +113,7 @@ if "quiz_data" not in st.session_state:
             ]
         },
         {
-            "question": "5. Wie can der Begriff „Messen“ erklärt werden?",
+            "question": "5. Wie kann der Begriff „Messen“ erklärt werden?",
             "type": "choice",
             "choices": [
                 "a) Messen ist das Ermitteln von Nennmaßen mit gesetzlich vorgeschriebenem Maßstab.",
@@ -155,7 +160,7 @@ if "quiz_data" not in st.session_state:
                 "a) Durch eine Fase",
                 "b) Durch ein aufgestempeltes A",
                 "c) Durch einen roten Farbring, außerdem ist diese Seite kürzer",
-                "d) Durch die Beschriftung mit dem Nennmaß",
+                "d) Durch die Beschriftung with dem Nennmaß",
                 "e) Durch eine Längsnut am Lehrenkörper"
             ],
             "correct": [
@@ -196,6 +201,11 @@ if st.session_state.current_idx < len(st.session_state.shuffled):
     q = st.session_state.shuffled[st.session_state.current_idx]
     st.subheader(f"Frage {st.session_state.current_idx + 1} von {len(st.session_state.shuffled)}")
     st.info(q["question"])
+    
+    # Отображение картинки, если она добавлена к вопросу
+    if "image" in q:
+        image_url = GITHUB_RAW_URL + q["image"]
+        st.image(image_url, use_container_width=True)
     
     q_type = q.get("type", "choice")
     user_answers = {}
