@@ -1,11 +1,17 @@
 import streamlit as st
 import random
+import urllib.parse
 
 # Настройка вкладки
 st.set_page_config(page_title="Benteler Trainer: Feilen, Meißeln, Prüfen", page_icon="📐", layout="centered")
 
-# Ссылка на твой репозиторий с учетом ветки "основной"
-GITHUB_RAW_URL = "https://raw.githubusercontent.com/suvorovbm1990-netizen/Feilen-Me-eln-Pr-fen/основной/"
+# Данные твоего репозитория (с автоматическим переводом русских букв в понятный для браузера формат)
+GITHUB_USER = "suvorovbm1990-netizen"
+GITHUB_REPO = urllib.parse.quote("Фейлен-Мей-эльн-Пр-фен")
+GITHUB_BRANCH = urllib.parse.quote("основной")
+
+# Собираем финальную рабочую ссылку для картинок
+GITHUB_RAW_URL = f"https://raw.githubusercontent.com/{GITHUB_USER}/{GITHUB_REPO}/{GITHUB_BRANCH}/"
 
 # База данных вопросов
 if "quiz_data" not in st.session_state:
@@ -28,7 +34,7 @@ if "quiz_data" not in st.session_state:
                 "k": ["klemschraube", "klemmschraube", "feststellschraube"]
             }
         },
-        # НОВЫЙ ВОПРОС 11: BÜGELMESSSCHRAUBE (с исправленным расширением .jpeg)
+        # ВОПРОС 11: BÜGELMESSSCHRAUBE
         {
             "question": "11. Benennen Sie die Teile der Bügelmessschraube (Bild 10/22):",
             "type": "text_input",
@@ -60,10 +66,10 @@ if "quiz_data" not in st.session_state:
             "question": "16. Wozu benutzt man Feilen mit folgenden Hiebnummern:",
             "type": "text_input",
             "inputs": {
-                "hiebnummer 1": ["schruppen", "grobe Arbeiten", "grobe Bearbeitung"],
-                "hiebnummer 2": ["schlichten", "halbschlichten", "mittlere Arbeiten"],
-                "hiebnummer 3": ["feinschlichten", "schlichten", "feine Arbeiten"],
-                "hiebnummer 4": ["feinschlichten", "feinstschlichten", "sehr feine Arbeiten", "schlichten von Passungen"]
+                "hiebnummer 1": ["schruppen", "grobe arbeiten", "grobe bearbeitung"],
+                "hiebnummer 2": ["schlichten", "halbschlichten", "mittlere arbeiten"],
+                "hiebnummer 3": ["feinschlichten", "schlichten", "feine arbeiten"],
+                "hiebnummer 4": ["feinschlichten", "feinstschlichten", "sehr feine arbeiten", "schlichten von passungen"]
             }
         },
         # ВОПРОС 17: ТЕХНИКА БЕЗОПАСНОСТИ (ввод 4 из 6)
@@ -134,7 +140,7 @@ if "quiz_data" not in st.session_state:
         },
         # ВОПРОС 5: ПОНЯТИЕ MESSEN
         {
-            "question": "5. Wie kann der Begriff „Messen“ erklärt werden?",
+            "question": "5. Wie kann the Begriff „Messen“ erklärt werden?",
             "type": "choice",
             "choices": [
                 "a) Messen is das Ermitteln von Nennmaßen mit gesetzlich vorgeschriebenem Maßstab.",
@@ -176,7 +182,7 @@ if "quiz_data" not in st.session_state:
                 "d) Teilungsfehler des Nonius und der Strichskala"
             ]
         },
-        # ВОПРОС 8: НАПРАВЛЕНИЕ ВЗГЛЯДА (с исправленным расширением .jpeg)
+        # ВОПРОС 8: НАПРАВЛЕНИЕ ВЗГЛЯДА
         {
             "question": "8. Beim Ablesen des Stahlmaßstabs muss zur Vermeidung von Parallaxe die Blickrichtung beachtet werden. Welche Blickrichtung ist richtig?",
             "type": "choice",
