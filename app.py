@@ -1,17 +1,9 @@
 import streamlit as st
 import random
-import urllib.parse
+import os
 
 # Настройка вкладки
 st.set_page_config(page_title="Benteler Trainer: Feilen, Meißeln, Prüfen", page_icon="📐", layout="centered")
-
-# Данные твоего репозитория (с автоматическим переводом русских букв в понятный для браузера формат)
-GITHUB_USER = "suvorovbm1990-netizen"
-GITHUB_REPO = urllib.parse.quote("Фейлен-Мей-эльн-Пр-фен")
-GITHUB_BRANCH = urllib.parse.quote("основной")
-
-# Собираем финальную рабочую ссылку для картинок
-GITHUB_RAW_URL = f"https://raw.githubusercontent.com/{GITHUB_USER}/{GITHUB_REPO}/{GITHUB_BRANCH}/"
 
 # База данных вопросов
 if "quiz_data" not in st.session_state:
@@ -93,7 +85,7 @@ if "quiz_data" not in st.session_state:
                 ["nach dem feilen werkstück entgraten", "nach dem werkstück entgraten", "nach dem feilen werkstueck entgraten", "werkstück entgraten"]
             ]
         },
-        # ВОПРОС 2: НАЗНАЧЕНИЕ ГУБОК
+        # ВОПРОС 2: НАЗНАЧЕНИЕ ГУБОК (ИСПРАВЛЕН ПРАВИЛЬНЫЙ ОТВЕТ!)
         {
             "question": "2. Wozu sollen die mit b gekennzeichneten spitzen, schneidenfoermigen Messflaechen des Messschiebers verwendet werden? (Bild 10/2)",
             "type": "choice",
@@ -105,7 +97,7 @@ if "quiz_data" not in st.session_state:
                 "e) Zum Messen von Nuttiefen bei Wellen."
             ],
             "correct": [
-                "d) Zum Messen von Kerndurchmessern bei Aussengewinden."
+                "c) Zum Messen von Bohrungsdurchmessern und Nutbreiten."
             ]
         },
         # ВОПРОС 3: УТВЕРЖДЕНИЕ ПРО КЛЕММУ
@@ -249,10 +241,14 @@ if st.session_state.current_idx < len(st.session_state.shuffled):
     st.subheader(f"Frage {st.session_state.current_idx + 1} von {len(st.session_state.shuffled)}")
     st.info(q["question"])
     
-    # Отображение картинки
+    # Отображение локальной картинки
     if "image" in q:
-        image_url = GITHUB_RAW_URL + q["image"]
-        st.image(image_url, use_column_width=True)
+        img_name = q["image"]
+        # Проверяем, существует ли файл локально в папке приложения
+        if os.path.exists(img_name):
+            st.image(img_name, use_column_width=True)
+        else:
+            st.error(f"Datei '{img_name}' wurde im Projektordner nicht gefunden. Bitte lade sie hoch.")
     
     q_type = q.get("type", "choice")
     user_answers = {}
