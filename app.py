@@ -59,8 +59,8 @@ if "quiz_data" not in st.session_state:
             "type": "text_input",
             "inputs": {
                 "hiebnummer 1": ["schruppen", "grobe arbeiten", "grobe bearbeitung"],
-                "hiebnummer 2": ["schlichten", "halbschlichten", "mittlere arbeiten"],
-                "hiebnummer 3": ["feinschlichten", "schlichten", "feine arbeiten"],
+                "hiebnummer 2": ["halbschlichten", "mittlere arbeiten"],
+                "hiebnummer 3": ["schlichten", "feine arbeiten"],
                 "hiebnummer 4": ["feinschlichten", "feinstschlichten", "sehr feine arbeiten", "schlichten von passungen"]
             }
         },
